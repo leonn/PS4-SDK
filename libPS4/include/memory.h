@@ -11,6 +11,7 @@
 #define PROT_GPU_READ 16
 #define PROT_GPU_WRITE 32
 
+#define PROT_NONE 0
 #define PROT_READ PROT_CPU_READ
 #define PROT_WRITE PROT_CPU_WRITE
 #define PROT_EXEC PROT_CPU_EXEC
@@ -43,7 +44,10 @@ struct otherMemoryRegionInfo {
 
 void *mmap(void *addr, size_t len, int prot, int flags, int fd, off_t offset);
 int munmap(void *addr, size_t len);
+int mprotect(void *addr, size_t len, int prot);
 int msync(void *addr, size_t len, int flags);
+int mlock(void *addr, size_t len);
+int munlock(void *addr, size_t len);
 
 int getMemoryInfo(void *address, struct memoryRegionInfo *destination);
 int getOtherMemoryInfo(void *address, int nextMatchIfUnmapped, struct otherMemoryRegionInfo *destination);
